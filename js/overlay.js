@@ -25,3 +25,14 @@ document.addEventListener('keyup', function(e) {
     t.closeOverlay().done();
   }
 });
+
+document.getElementById('json-url').addEventListener('change', (e) => {
+  console.log(e.target.value);
+})
+
+// document.getElementById('add-to-card').addEventListener('click', () => {
+//   var url = document.getElementById('json-url').value;
+//   var path = document.getElementById('json-path').value;
+
+//   t.set('card', 'shared', {})
+// })

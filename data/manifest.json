@@ -1,0 +1,21 @@
+{
+  "name": "Khanh's 20% PowerUp",
+  "description": "",
+  "details": "Just fun stuff.",
+  "icon": {
+    "url": "./images/yodawg.png"
+  },
+  "author": "Khanh Nguyen",
+  "capabilities": [
+    "callback",
+    "card-badges"
+  ],
+  "connectors": {
+    "iframe": {
+      "url": "./index.html"
+    }
+  },
+  "recommend": {
+    "urls": []
+  }
+}

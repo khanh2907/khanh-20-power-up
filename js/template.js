@@ -1,7 +1,87 @@
 /* global TrelloPowerUp */
 
+var DANCING_KAOMOJI = [
+  "＼(^▽^＠)ノ",
+  "ヽ(*ﾟｰﾟ*)ﾉ",
+  "ヽ( °◇°)ノ",
+  "ヾ(･ω･*)ﾉ",
+  "ヾ(＠^∇^＠)ノ",
+  "ヾ(*´∇`)ﾉ",
+  "ヽ(*´Д｀*)ﾉ",
+  "ヾ（*⌒ヮ⌒*）ゞ",
+  "ヾ(*д*)ﾉ",
+  "ヽ(´ー`)ﾉ",
+  "ヽ(°◇° )ノ",
+  "ƪ(˘⌣˘)ʃ",
+  "╰(°ㅂ°)╯",
+  "₍₍⁽⁽(ી(^‿ゝ^)ʃ)₎₎⁾⁾",
+  "₍₍⁽⁽(ી(´;ω;` )ʃ)₎₎⁾⁾",
+  "ヾ｜￣ー￣｜ﾉ",
+  "ヘ| ´ω｀ |ﾉ",
+  "└( ＾ω＾ )」",
+  "┗(｀O´)┛",
+  "└| ∵ |┘",
+  "♪└|∵|┘♪",
+  "└(･･ ･･･)」",
+  "(/・・)ノ",
+  "(ﾉ･ｪ･)ﾉ",
+  "(ﾉ*ﾟｰﾟ)ﾉ",
+  "(ノ￣ー￣)ノ",
+  "( ﾉ^ω^)ﾉﾟ",
+  "(*ﾉ´□`)ﾉ",
+  "(ﾉ･o･)ﾉ",
+  "(ノ‥)ノ",
+  "(ノ´＿ゝ｀）ノ",
+  "(ノ^_^)ノ",
+  "(ノ^o^)ノ",
+  "(ノ￣ω￣)ノ",
+  "(ノ°ο°)ノ",
+  "(ﾉ≧∀≦)ﾉ",
+  "(ﾉﾟ▽ﾟ)ﾉ",
+  "〈( ^.^)ノ",
+  "ヾ(⌐■_■)ノ♪",
+  "ヽ(⌐■_■)ノ♪♬",
+  "(｢･ω･)｢",
+  "(┌ﾟдﾟ)┌",
+  "♪(┌・。・)┌",
+  "(｢`･ω･)｢",
+  "ヾ( ͝° ͜ʖ͡°)ノ♪",
+  "(ﾉ´∀｀)ﾉ",
+  "(ノ〝∩｡∩)ﾉ",
+  "┛´Д｀┃┛))",
+  "(ノ´m｀)ノ",
+  "(Г・ω・)г",
+  "(´「^o^)「",
+  "(ﾉﾟ⊿ﾟ)ﾉ",
+  "＼(ﾟｰﾟ＼)",
+  "ヽ(･ω･ゞ)",
+  "ヽ(^‥^=ゞ)",
+  "＼(^ω^＼)",
+  "ヾ(-_- )ゞ",
+  "ヽ(;^o^ヽ)",
+  "ヾ(´▽｀;)ゝ",
+  "ヾ(^ ^ゞ",
+  "ヾ(^^ゞ)",
+  "ヾ(ﾟ∀ﾟゞ)",
+  "ヽ(ﾟｰﾟ*ヽ)",
+  "ヘ(^_^ヘ)",
+  "ヘ(^o^ヘ)",
+  "乁( ˙ ω˙乁)",
+  "˺⁽ˆ⁰ˆ˺ ⁾˺",
+  "ﾍ(´∀｀ﾍ)",
+  "ヽ(∩。∩゛ヽ)",
+  "ゝ(▽｀*ゝ)",
+  "ヾ(´▽｀*;)ゝ”",
+  "へ(ﾟ◇ﾟへ)",
+  "♪L(´▽｀L )♪",
+  "ヾ(￣ー￣ヾ)",
+  "ヘ(´m｀ヘ)",
+  "ヘ(^0^)ヘ"
+]
+
 var WHITE_ICON = './images/icon-white.svg';
 var GRAY_ICON = './images/icon-gray.svg';
+var YO_DAWG_IMG = './images/yodawg.png';
 
 var parkMap = {
   acad: 'Acadia National Park',
@@ -19,51 +99,110 @@ var parkMap = {
   zion: 'Zion National Park'
 };
 
+var randomFromArray = function(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+var randomKaomoji = function () {
+  return randomFromArray(DANCING_KAOMOJI);
+}
+
+var winningFaces = ['🙂','😊','😁','😎','😋'];
+var losingFaces = ['😭','😒','😩','😢', '😡'];
+var tieFaces = ['😑', '😐']
+
+var ROCK = '👊',
+PAPER = '✋',
+SCISSORS = '✌️';
+
+var RPS_MOVES = [ROCK, PAPER, SCISSORS];
+
+var randomRpsGame = function() {
+
+  var move1 = randomFromArray(RPS_MOVES);
+  var move2 = randomFromArray(RPS_MOVES);
+
+  var isTie, p1Wins;
+
+  switch (move1){
+    case ROCK:
+      if (move2 === PAPER) p1Wins = false;
+      else if (move2 === SCISSORS) p1Wins = true;
+      else isTie = true;
+      break;
+    case PAPER:
+      if (move2 === SCISSORS) p1Wins = false;
+      else if (move2 === ROCK) p1Wins = true;
+      else isTie = true;
+      break;
+    case SCISSORS:
+      if (move2 === ROCK) p1Wins = false;
+      else if (move2 === PAPER) p1Wins = true;
+      else isTie = true;
+      break;
+  }
+
+  var p1, p2;
+
+  if (isTie) {
+    p1 = randomFromArray(tieFaces);
+    p2 = randomFromArray(tieFaces);
+  } else {
+    p1 = p1Wins ? randomFromArray(winningFaces) : randomFromArray(losingFaces);
+    p2 = p1Wins ?randomFromArray(losingFaces) : randomFromArray(winningFaces);
+  }
+
+  return `${p1} ${move1}  vs  ${move2} ${p2}`;
+}
+
 var getBadges = function(t){
-  return t.card('name')
+  return t.list('name')
   .get('name')
-  .then(function(cardName){
-    var badgeColor;
-    var icon = GRAY_ICON;
-    var lowercaseName = cardName.toLowerCase();
-    if(lowercaseName.indexOf('green') > -1){
-      badgeColor = 'green';
-      icon = WHITE_ICON;
-    } else if(lowercaseName.indexOf('yellow') > -1){
-      badgeColor = 'yellow';
-      icon = WHITE_ICON;
-    } else if(lowercaseName.indexOf('red') > -1){
-      badgeColor = 'red';
-      icon = WHITE_ICON;
-    }
-
-    if(lowercaseName.indexOf('dynamic') > -1){
-      // dynamic badges can have their function rerun after a set number
-      // of seconds defined by refresh. Minimum of 10 seconds.
-      return [{
-        dynamic: function(){
-          return {
-            title: 'Detail Badge', // for detail badges only
-            text: 'Dynamic ' + (Math.random() * 100).toFixed(0).toString(),
-            icon: icon, // for card front badges only
-            color: badgeColor,
-            refresh: 10
+  .then(function(listName){
+    switch (listName) {
+      case 'KAOMOJI':
+        return [
+          {
+            dynamic: function(){
+              return {
+                title: randomKaomoji(),
+                text: randomKaomoji(),
+                refresh: 10
+              }
+            }
           }
-        }
-      }]
+        ]
+      case 'Roshambo':
+        return [
+          {
+            dynamic: function(){
+              return {
+                title: randomRpsGame(),
+                text: randomRpsGame(),
+                refresh: 10
+              }
+            }
+          }
+        ]
+      case 'Botler':
+        return t.card('name').get('name').then((cardName) => {
+          if (cardName.toLowerCase().indexOf('xzibit') > -1) {
+            return [
+              {
+                title: 'Yo dawg, I heard you liked...',
+                text: 'Yo dawg, I heard you liked...',
+                icon: YO_DAWG_IMG
+              }
+            ]
+          }
+
+          return [];
+        })
+      default:
+        break;
     }
 
-    if(lowercaseName.indexOf('static') > -1){
-      // return an array of badge objects
-      return [{
-        title: 'Detail Badge', // for detail badges only
-        text: 'Static',
-        icon: icon, // for card front badges only
-        color: badgeColor
-      }];
-    } else {
-      return [];
-    }
+    return [];
   })
 };
 
@@ -112,130 +251,14 @@ var boardButtonCallback = function(t){
 };
 
 var cardButtonCallback = function(t){
-  var items = Object.keys(parkMap).map(function(parkCode){
-    var urlForCode = 'http://www.nps.gov/' + parkCode + '/';
-    return {
-      text: parkMap[parkCode],
-      url: urlForCode,
-      callback: function(t){
-        return t.attach({ url: urlForCode, name: parkMap[parkCode] })
-        .then(function(){
-          return t.closePopup();
-        })
-      }
-    };
-  });
-
-  return t.popup({
-    title: 'Popup Search Example',
-    items: items,
-    search: {
-      count: 5,
-      placeholder: 'Search National Parks',
-      empty: 'No parks found'
-    }
+  return t.overlay({
+    url: './overlay.html',
+    args: { rand: (Math.random() * 100).toFixed(0) }
   });
 };
 
 TrelloPowerUp.initialize({
-  'attachment-sections': function(t, options){
-    // options.entries is a list of the attachments for this card
-    // you can look through them and 'claim' any that you want to
-    // include in your section.
-
-    // we will just claim urls for Yellowstone
-    var claimed = options.entries.filter(function(attachment){
-      return attachment.url.indexOf('http://www.nps.gov/yell/') == 0;
-    });
-
-    // you can have more than one attachment section on a card
-    // you can group items together into one section, have a section
-    // per attachment, or anything in between.
-    if(claimed && claimed.length > 0){
-      // if the title for your section requires a network call or other
-      // potentially length operation you can provide a function for the title
-      // that returns the section title. If you do so, provide a unique id for
-      // your section
-      return [{
-        id: 'Yellowstone', // optional if you aren't using a function for the title
-        claimed: claimed,
-        icon: GRAY_ICON,
-        title: 'Example Attachment Section: Yellowstone',
-        content: {
-          type: 'iframe',
-          url: t.signUrl('./section.html', { arg: 'you can pass your section args here' }),
-          height: 230
-        }
-      }];
-    } else {
-      return [];
-    }
-  },
-  'attachment-thumbnail': function(t, options){
-    var parkName = formatNPSUrl(t, options.url);
-    if(parkName){
-      // return an object with some or all of these properties:
-      // url, title, image, openText, modified (Date), created (Date), createdBy, modifiedBy
-      return {
-        url: options.url,
-        title: parkName,
-        image: {
-          url: './images/nps.svg',
-          logo: true // false if you are using a thumbnail of the content
-        },
-        openText: 'Open in NPS'
-      };
-    } else {
-      throw t.NotHandled();
-    }
-  },
-  'board-buttons': function(t, options){
-    return [{
-      icon: WHITE_ICON,
-      text: 'Template',
-      callback: boardButtonCallback
-    }];
-  },
   'card-badges': function(t, options){
     return getBadges(t);
-  },
-  'card-buttons': function(t, options) {
-    return [{
-      icon: GRAY_ICON,
-      text: 'Template',
-      callback: cardButtonCallback
-    }];
-  },
-  'card-detail-badges': function(t, options) {
-    return getBadges(t);
-  },
-  'card-from-url': function(t, options) {
-    var parkName = formatNPSUrl(t, options.url);
-    if(parkName){
-      return {
-        name: parkName,
-        desc: 'An awesome park: ' + options.url
-      };
-    } else {
-      throw t.NotHandled();
-    }
-  },
-  'format-url': function(t, options) {
-    var parkName = formatNPSUrl(t, options.url);
-    if(parkName){
-      return {
-        icon: GRAY_ICON,
-        text: parkName
-      };
-    } else {
-      throw t.NotHandled();
-    }
-  },
-  'show-settings': function(t, options){
-    return t.popup({
-      title: 'Settings',
-      url: './settings.html',
-      height: 184
-    });
   }
 });
