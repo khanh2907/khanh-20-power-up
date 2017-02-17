@@ -1,22 +1,15 @@
 {
-  "name": "Static Template",
+  "name": "Khanh's 20% PowerUp",
   "description": "",
-  "details": "A static sample Power-Up hosted on GitHub pages. Feel free to fork [this repository](https://github.com/trello/power-up-template) as a starting point for your own Power-Up.",
+  "details": "Just fun stuff.",
   "icon": {
-    "url": "./images/logo.png"
+    "url": "./images/yodawg.png"
   },
-  "author": "Trello Inc",
+  "author": "Khanh Nguyen",
   "capabilities": [
-    "attachment-sections",
-    "attachment-thumbnail",
-    "board-buttons",
     "callback",
     "card-badges",
-    "card-buttons",
-    "card-detail-badges",
-    "card-from-url",
-    "format-url",
-    "show-settings"
+    "board-buttons"
   ],
   "connectors": {
     "iframe": {
