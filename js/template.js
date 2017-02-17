@@ -239,10 +239,32 @@ TrelloPowerUp.initialize({
     return getBadges(t);
   },
   'board-buttons': function (t, options) {
-    return [{
-      icon: TACO_IMG,
-      text: 'Play Flappy Taco',
-      callback: boardButtonCallback
-    }];
+    return [
+      {
+        icon: TACO_IMG,
+        text: 'Play Flappy Taco',
+        callback: boardButtonCallback
+      },
+      {
+        icon: './images/linkedin.png',
+        text: 'LinkedIn Profile',
+        url: 'https://www.linkedin.com/in/khanh2907/'
+      },
+      {
+        icon: './images/bitbucket.png',
+        text: 'Bitbucket Profile',
+        url: 'https://bitbucket.org/khanhfucius/'
+      },
+      {
+        icon: './images/confluence.ico',
+        text: 'Blog (Internal)',
+        url: 'https://extranet.atlassian.com/spaces/viewspace.action?key=~khanguyen'
+      },
+      {
+        icon: './images/medium.png',
+        text: 'Blog (Public)',
+        url: 'https://medium.com/@khanhfucius'
+      },
+    ];
   }
 });
