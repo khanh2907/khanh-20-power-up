@@ -82,6 +82,7 @@ var DANCING_KAOMOJI = [
 var WHITE_ICON = './images/icon-white.svg';
 var GRAY_ICON = './images/icon-gray.svg';
 var YO_DAWG_IMG = './images/yodawg.png';
+var TACO_IMG = './images/taco.png';
 
 var parkMap = {
   acad: 'Acadia National Park',
@@ -99,7 +100,7 @@ var parkMap = {
   zion: 'Zion National Park'
 };
 
-var randomFromArray = function(array) {
+var randomFromArray = function (array) {
   return array[Math.floor(Math.random() * array.length)];
 }
 
@@ -107,24 +108,24 @@ var randomKaomoji = function () {
   return randomFromArray(DANCING_KAOMOJI);
 }
 
-var winningFaces = ['🙂','😊','😁','😎','😋'];
-var losingFaces = ['😭','😒','😩','😢', '😡'];
+var winningFaces = ['🙂', '😊', '😁', '😎', '😋'];
+var losingFaces = ['😭', '😒', '😩', '😢', '😡'];
 var tieFaces = ['😑', '😐']
 
 var ROCK = '👊',
-PAPER = '✋',
-SCISSORS = '✌️';
+  PAPER = '✋',
+  SCISSORS = '✌️';
 
 var RPS_MOVES = [ROCK, PAPER, SCISSORS];
 
-var randomRpsGame = function() {
+var randomRpsGame = function () {
 
   var move1 = randomFromArray(RPS_MOVES);
   var move2 = randomFromArray(RPS_MOVES);
 
   var isTie, p1Wins;
 
-  switch (move1){
+  switch (move1) {
     case ROCK:
       if (move2 === PAPER) p1Wins = false;
       else if (move2 === SCISSORS) p1Wins = true;
@@ -149,116 +150,99 @@ var randomRpsGame = function() {
     p2 = randomFromArray(tieFaces);
   } else {
     p1 = p1Wins ? randomFromArray(winningFaces) : randomFromArray(losingFaces);
-    p2 = p1Wins ?randomFromArray(losingFaces) : randomFromArray(winningFaces);
+    p2 = p1Wins ? randomFromArray(losingFaces) : randomFromArray(winningFaces);
   }
 
   return `${p1} ${move1}  vs  ${move2} ${p2}`;
 }
 
-var getBadges = function(t){
+var getBadges = function (t) {
   return t.list('name')
-  .get('name')
-  .then(function(listName){
-    switch (listName) {
-      case 'KAOMOJI':
-        return [
-          {
-            dynamic: function(){
-              return {
-                title: randomKaomoji(),
-                text: randomKaomoji(),
-                refresh: 10
+    .get('name')
+    .then(function (listName) {
+      switch (listName) {
+        case 'KAOMOJI':
+          return [
+            {
+              dynamic: function () {
+                return {
+                  title: randomKaomoji(),
+                  text: randomKaomoji(),
+                  refresh: 10
+                }
               }
             }
-          }
-        ]
-      case 'Roshambo':
-        return [
-          {
-            dynamic: function(){
-              return {
-                title: randomRpsGame(),
-                text: randomRpsGame(),
-                refresh: 10
+          ]
+        case 'Roshambo':
+          return [
+            {
+              dynamic: function () {
+                return {
+                  title: randomRpsGame(),
+                  text: randomRpsGame(),
+                  refresh: 10
+                }
               }
             }
-          }
-        ]
-      case 'Botler':
-        return t.card('name').get('name').then((cardName) => {
-          if (cardName.toLowerCase().indexOf('xzibit') > -1) {
-            return [
-              {
-                title: 'Yo dawg, I heard you liked...',
-                text: 'Yo dawg, I heard you liked...',
-                icon: YO_DAWG_IMG
-              }
-            ]
-          }
+          ]
+        case 'Botler':
+          return t.card('name').get('name').then((cardName) => {
+            if (cardName.toLowerCase().indexOf('xzibit') > -1) {
+              return [
+                {
+                  title: 'Yo dawg, I heard you liked...',
+                  text: 'Yo dawg, I heard you liked...',
+                  icon: YO_DAWG_IMG
+                }
+              ]
+            }
 
-          return [];
-        })
-      default:
-        break;
-    }
+            return [];
+          })
+        default:
+          break;
+      }
 
-    return [];
-  })
+      return [];
+    })
 };
 
-var formatNPSUrl = function(t, url){
-  if(!/^https?:\/\/www\.nps\.gov\/[a-z]{4}\//.test(url)){
+var formatNPSUrl = function (t, url) {
+  if (!/^https?:\/\/www\.nps\.gov\/[a-z]{4}\//.test(url)) {
     return null;
   }
   var parkShort = /^https?:\/\/www\.nps\.gov\/([a-z]{4})\//.exec(url)[1];
-  if(parkShort && parkMap[parkShort]){
+  if (parkShort && parkMap[parkShort]) {
     return parkMap[parkShort];
-  } else{
+  } else {
     return null;
   }
 };
 
-var boardButtonCallback = function(t){
-  return t.popup({
-    title: 'Popup List Example',
-    items: [
-      {
-        text: 'Open Overlay',
-        callback: function(t){
-          return t.overlay({
-            url: './overlay.html',
-            args: { rand: (Math.random() * 100).toFixed(0) }
-          })
-          .then(function(){
-            return t.closePopup();
-          });
-        }
-      },
-      {
-        text: 'Open Board Bar',
-        callback: function(t){
-          return t.boardBar({
-            url: './board-bar.html',
-            height: 200
-          })
-          .then(function(){
-            return t.closePopup();
-          });
-        }
-      }
-    ]
-  });
-};
-
-var cardButtonCallback = function(t){
+var cardButtonCallback = function (t) {
   return t.overlay({
     url: './overlay.html',
     args: { rand: (Math.random() * 100).toFixed(0) }
   });
 };
 
+var boardButtonCallback = function (t) {
+  return t.boardBar({
+    url: './flappy.html',
+    height: 350
+  })
+};
+
+
 TrelloPowerUp.initialize({
-  'card-badges': function(t, options){
+  'card-badges': function (t, options) {
     return getBadges(t);
+  },
+  'board-buttons': function (t, options) {
+    return [{
+      icon: TACO_IMG,
+      text: 'Play Flappy Taco',
+      callback: boardButtonCallback
+    }];
   }
 });
